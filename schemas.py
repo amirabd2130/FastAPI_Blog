@@ -9,7 +9,15 @@ class Blog(BaseModel):
     status: Optional[str] = 'Draft'
 
 
-class BlogDetail(BaseModel):
+class BlogMinDetail(BaseModel):
+    title: str
+    body: str
+
+    class Config():
+        orm_mode = True
+
+
+class BlogFullDetail(BaseModel):
     id: str
     date_created: datetime
     date_modified: datetime
@@ -35,7 +43,17 @@ class User(BaseModel):
         orm_mode = True
 
 
-class UserDetail(BaseModel):
+class UserMinDetail(BaseModel):
+    first_name: str
+    last_name: str
+    username: str
+    status: Optional[str] = 'Active'
+
+    class Config():
+        orm_mode = True
+
+
+class UserFullDetail(BaseModel):
     id: str
     date_created: datetime
     date_modified: datetime
@@ -44,7 +62,6 @@ class UserDetail(BaseModel):
     first_name: str
     last_name: str
     username: str
-    password: str
     status: Optional[str] = 'Active'
 
     class Config():
