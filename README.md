@@ -1,2 +1,5 @@
 # FastAPI_Blog
 FastAPI Blog
+
+
+**VERY EARLY STAGE OF DEVELOPMENT**
