@@ -13,7 +13,8 @@ A simple blog API using FastAPI
 Entities:
 * **Blogs**
 * **Users**
-* **Comments** (--NOT IMPLEMETED YET--)
+* **Comments** --*NOT IMPLEMETED YET*--
+* **Tags** --*NOT IMPLEMETED YET*--
 """
 
 tags_metadata = [
