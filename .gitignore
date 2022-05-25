@@ -1,5 +1,6 @@
-# Ignore files
+# files
+*.log
 
 
-# Ignored directories
-/__pycache__/
+# directories
+__pycache__/

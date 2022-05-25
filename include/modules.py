@@ -1,0 +1,4 @@
+modules = [
+    'users',
+    'blogs',
+]
