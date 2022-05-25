@@ -1,4 +1,4 @@
-# FastAPI_Blog
+# FastAPI_Blog v0.0.1
 
 **`** VERY EARLY STAGE OF DEVELOPMENT **`**
 
