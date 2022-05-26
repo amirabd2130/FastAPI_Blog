@@ -5,10 +5,14 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class Hashing():
-    def Hash(string:str):
+    @classmethod
+    def Hash(cls, string:str):
         return pwd_context.hash(string)
-        
-    def Verify(plainString:str, hashedString:str):
+
+
+    @classmethod
+    def Verify(cls, plainString:str, hashedString:str):
+        print(plainString, hashedString)
         return pwd_context.verify(plainString, hashedString)
 
 

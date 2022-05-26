@@ -9,5 +9,5 @@ setup(
     author_email = 'amirabd2130@yahoo.com',
     url = "https://github.com/amirabd2130/FastAPI_Blog",
     packages = ['FastAPI_Blog'],
-    install_requires = ['fastapi', 'uvicorn', 'pymysql', 'sqlalchemy', 'python-jose', 'cryptography', 'passlib', 'bcrypt'],
+    install_requires = ['fastapi', 'uvicorn', 'pymysql', 'sqlalchemy', 'python-jose', 'cryptography', 'passlib', 'bcrypt', 'python-multipart'],
 )

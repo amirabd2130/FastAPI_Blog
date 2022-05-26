@@ -2,7 +2,7 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from ..include import schemas, database
-from ..modules.users import users
+from ..modules.users.users import User
 
 
 router = APIRouter(
@@ -15,9 +15,9 @@ router = APIRouter(
 
 @router.post('/', status_code = status.HTTP_201_CREATED, response_model = schemas.UserMinDetail)
 def Create_User(request: schemas.User, db: Session = Depends(database.get_db)):
-    return users.User.Create_User(request, db)
+    return User.Create_User(request, db)
 
 
 @router.get('/{id}', status_code = status.HTTP_200_OK, response_model = schemas.UserMinDetail)
-def Get_One_User(id: str, db: Session = Depends(database.get_db)):
-    return users.User.Get_One_User(id, db)
+def Get_User_by_Id(id: str, db: Session = Depends(database.get_db)):
+    return User.Get_One_User(id, db)

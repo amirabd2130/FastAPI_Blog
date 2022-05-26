@@ -1,15 +1,18 @@
 from datetime import datetime
 import uuid
-from fastapi import status, HTTPException
+from fastapi import Depends
 from sqlalchemy.orm import Session
-from ...include import hashing, models, schemas
+from ...include import database, exceptions, hashing, models, schemas
+from ...modules.authentication.authentication import oauth2_scheme
+from ..authentication.jwt_auth import JWTAuth
 
 
 class User():
-    def Create_User(request: schemas.User, db: Session):
+    @classmethod
+    def Create_User(cls, request: schemas.User, db: Session):
         user = db.query(models.User).filter(models.User.username == request.username, models.User.deleted == 0)
         if user.first():
-            raise HTTPException(status_code = status.HTTP_409_CONFLICT, detail = f'username {repr(request.username)} already exists')
+            raise exceptions.USER_EXISTS_EXCEPTION
         else:
             newUser = models.User(
                             id = uuid.uuid4(),
@@ -26,9 +29,26 @@ class User():
             return newUser
 
 
-    def Get_One_User(id: str, db: Session):
+    @classmethod
+    def Get_User_by_Id(cls, id: str, db: Session):
         user = db.query(models.User).filter(models.User.id==id, models.User.deleted==0).first()
         if not user:
-            raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail = f'record with id {repr(id)} deos not exist or has been deleted')
+            raise exceptions.NOT_FOUND_EXCEPTION
         else:
             return user
+
+
+    @classmethod
+    def Get_User_by_Username(cls, username: str, db: Session):
+        user = db.query(models.User).filter(models.User.username==username, models.User.deleted==0).first()
+        if user:
+            return user
+
+
+    @classmethod
+    def Get_Current_User(cls, token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
+        token_data = JWTAuth.Verify_Token(token)
+        user = User.Get_User_by_Username(token_data.username, db)
+        if not user:
+            raise exceptions.CREDENTIALS_EXCEPTION
+        return user

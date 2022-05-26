@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from .include import models, database
-from .routers import blogs, users
+from .routers import authentication, blogs, users
 
 description = """
 A simple blog API using FastAPI
@@ -39,6 +39,7 @@ app = FastAPI(
 )
 app.include_router(blogs.router)
 app.include_router(users.router)
+app.include_router(authentication.router)
 
 # create tables if they don't exists in the database
 models.Base.metadata.create_all(bind = database.engine)
