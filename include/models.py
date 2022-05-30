@@ -3,7 +3,7 @@ from ..modules.users.models import *
 
 
 # class Blog(Base):
-#     __tablename__ = "blogs"
+#     __tablename__ = 'blogs'
 
 #     id = Column(String(36), primary_key=True, index=True, nullable=False)
 #     date_created = Column(DateTime, nullable=False)
@@ -14,11 +14,11 @@ from ..modules.users.models import *
 #     body = Column(Text)
 #     status = Column(String(50))
 
-#     created_by = relationship("User", back_populates="blogs")
+#     created_by = relationship('User', back_populates='blogs')
 
 
 # class User(Base):
-#     __tablename__ = "users"
+#     __tablename__ = 'users'
 
 #     id = Column(String(36), primary_key=True, index=True, nullable=False)
 #     date_created = Column(DateTime, nullable=False)
@@ -30,4 +30,4 @@ from ..modules.users.models import *
 #     password = Column(String(255), nullable=False)
 #     status = Column(String(50))
 
-#     blogs = relationship("Blog", back_populates="created_by")
+#     blogs = relationship('Blog', back_populates='created_by')

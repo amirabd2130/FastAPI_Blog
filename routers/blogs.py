@@ -7,33 +7,31 @@ from ..modules.users.users import User
 
 
 router = APIRouter(
-    prefix = "/blog",
-    tags = ["Blog"],
-#    dependencies=[Depends(get_token_header)],
-#    responses={404: {"description": "Not found"}},
+    prefix = '/blog',
+    tags = ['Blog'],
 )
 
 
 @router.post('/', status_code = status.HTTP_201_CREATED)
-def Create_Blog(request: schemas.Blog, db: Session = Depends(database.get_db), currentUser: schemas.User = Depends(User.Get_Current_User)):
-    return Blog.Create_Blog(request, db, currentUser)
+def create_blog(request: schemas.Blog, db: Session = Depends(database.get_db), currentUser: schemas.User = Depends(User.get_current_user)):
+    return Blog.create_blog(request, db, currentUser)
 
 
 @router.get('/', status_code = status.HTTP_200_OK, response_model = List[schemas.BlogFullDetail])
-def Get_List_Of_Blogs(db: Session = Depends(database.get_db), currentUser: schemas.User = Depends(User.Get_Current_User)):
-    return Blog.Get_List_Of_Blogs(db, currentUser)
+def get_list_of_blogs(db: Session = Depends(database.get_db), currentUser: schemas.User = Depends(User.get_current_user)):
+    return Blog.get_list_of_blogs(db, currentUser)
 
 
 @router.get('/{id}', status_code = status.HTTP_200_OK, response_model = schemas.BlogFullDetail)
-def Get_One_Blog(id: str, db: Session = Depends(database.get_db), currentUser: schemas.User = Depends(User.Get_Current_User)):
-    return Blog.Get_One_Blog(id, db, currentUser)
+def get_one_blog(id: str, db: Session = Depends(database.get_db), currentUser: schemas.User = Depends(User.get_current_user)):
+    return Blog.get_one_blog(id, db, currentUser)
 
 
 @router.delete('/{id}', status_code = status.HTTP_204_NO_CONTENT)
-def Delete_Blog(id: str, db: Session = Depends(database.get_db), currentUser: schemas.User = Depends(User.Get_Current_User)):
-    return Blog.Delete_Blog(id, db, currentUser)
+def delete_blog(id: str, db: Session = Depends(database.get_db), currentUser: schemas.User = Depends(User.get_current_user)):
+    return Blog.delete_blog(id, db, currentUser)
 
 
 @router.put('/{id}', status_code = status.HTTP_202_ACCEPTED)
-def Update_Blog(id: str, request: schemas.Blog, db: Session = Depends(database.get_db), currentUser: schemas.User = Depends(User.Get_Current_User)):
-    return Blog.Delete_Blog(id, request, db, currentUser)
+def update_blog(id: str, request: schemas.Blog, db: Session = Depends(database.get_db), currentUser: schemas.User = Depends(User.get_current_user)):
+    return Blog.update_blog(id, request, db, currentUser)

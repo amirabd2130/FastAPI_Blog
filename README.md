@@ -9,6 +9,7 @@ Entities:
 * **Users**
 * **Comments** --*NOT IMPLEMETED YET*--
 * **Tags** --*NOT IMPLEMETED YET*--
+* **Admin** --*NOT IMPLEMETED YET*--
 
 
 

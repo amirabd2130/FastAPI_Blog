@@ -9,7 +9,7 @@ from ..authentication.jwt_auth import JWTAuth
 
 class User():
     @classmethod
-    def Create_User(cls, request: schemas.User, db: Session):
+    def create_user(cls, request: schemas.User, db: Session):
         user = db.query(models.User).filter(models.User.username == request.username, models.User.deleted == 0)
         if user.first():
             raise exceptions.USER_EXISTS_EXCEPTION
@@ -30,7 +30,7 @@ class User():
 
 
     @classmethod
-    def Get_User_by_Id(cls, id: str, db: Session):
+    def get_user_by_id(cls, id: str, db: Session):
         user = db.query(models.User).filter(models.User.id==id, models.User.deleted==0).first()
         if not user:
             raise exceptions.NOT_FOUND_EXCEPTION
@@ -39,16 +39,16 @@ class User():
 
 
     @classmethod
-    def Get_User_by_Username(cls, username: str, db: Session):
+    def get_user_by_username(cls, username: str, db: Session):
         user = db.query(models.User).filter(models.User.username==username, models.User.deleted==0).first()
         if user:
             return user
 
 
     @classmethod
-    def Get_Current_User(cls, token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
-        token_data = JWTAuth.Verify_Token(token)
-        user = User.Get_User_by_Username(token_data.username, db)
+    def get_current_user(cls, token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
+        token_data = JWTAuth.verify_token(token)
+        user = User.get_user_by_username(token_data.username, db)
         if not user:
             raise exceptions.CREDENTIALS_EXCEPTION
         return user

@@ -1,13 +1,12 @@
 from datetime import datetime
 import uuid
-from fastapi import Depends
 from sqlalchemy.orm import Session
 from ...include import models, schemas, exceptions
 
 
 class Blog():
     @classmethod
-    def Create_Blog(cls, request: schemas.Blog, db: Session, currentUser: schemas.User):
+    def create_blog(cls, request: schemas.Blog, db: Session, currentUser: schemas.User):
         newBlog = models.Blog(
                             id = uuid.uuid4(),
                             date_created = datetime.now().isoformat(),
@@ -23,7 +22,7 @@ class Blog():
 
 
     @classmethod
-    def Update_Blog(cls, id: str, request: schemas.Blog, db: Session, currentUser: schemas.User):
+    def update_blog(cls, id: str, request: schemas.Blog, db: Session, currentUser: schemas.User):
         blog = db.query(models.Blog).filter(models.Blog.id == id, models.Blog.deleted == 0)
         if not blog.first():
             raise exceptions.NOT_FOUND_EXCEPTION
@@ -38,7 +37,7 @@ class Blog():
 
 
     @classmethod
-    def Get_One_Blog(cls, id: str, db: Session, currentUser: schemas.User):
+    def get_one_blog(cls, id: str, db: Session, currentUser: schemas.User):
         blog = db.query(models.Blog).filter(models.Blog.id==id, models.Blog.deleted==0).first()
         if not blog:
             raise exceptions.NOT_FOUND_EXCEPTION
@@ -47,13 +46,13 @@ class Blog():
 
 
     @classmethod
-    def Get_List_Of_Blogs(cls, db: Session, currentUser: schemas.User):
+    def get_list_of_blogs(cls, db: Session, currentUser: schemas.User):
         blogs = db.query(models.Blog).order_by(models.Blog.date_created.desc()).all()
         return blogs
 
 
     @classmethod
-    def Delete_Blog(cls, id: str, db: Session, currentUser: schemas.User):
+    def delete_blog(cls, id: str, db: Session, currentUser: schemas.User):
         blog = db.query(models.Blog).filter(models.Blog.id == id, models.Blog.deleted == 0)
         if not blog.first():
             raise exceptions.NOT_FOUND_EXCEPTION

@@ -5,7 +5,7 @@ from ...modules.users.models import *
 
 
 class Blog(Base):
-    __tablename__ = "blogs"
+    __tablename__ = 'blogs'
 
     id = Column(String(36), primary_key=True, index=True, nullable=False)
     date_created = Column(DateTime, nullable=False)
@@ -16,4 +16,4 @@ class Blog(Base):
     body = Column(Text)
     status = Column(String(50))
 
-    created_by = relationship("User", back_populates="blogs")
+    created_by = relationship('User', back_populates='blogs')
